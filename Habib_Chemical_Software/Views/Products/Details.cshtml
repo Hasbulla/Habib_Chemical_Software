@@ -1,0 +1,130 @@
+﻿@model Habib_Chemical_Software.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product_type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product_type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.weight_per_bag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weight_per_bag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.current_amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.current_amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.update_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.update_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User1.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight_Type1.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight_Type1.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
