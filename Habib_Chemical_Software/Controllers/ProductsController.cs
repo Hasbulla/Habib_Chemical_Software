@@ -1,48 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using Habib_Chemical_Software.BO;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Habib_Chemical_Software;
 
 namespace Habib_Chemical_Software.Controllers
 {
     public class ProductsController : Controller
     {
-        private Habib_ChemicalsEntities db = new Habib_ChemicalsEntities();
+        ProductsBO db = new ProductsBO();
+        Habib_ChemicalsEntities hef = new Habib_ChemicalsEntities();
 
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.User).Include(p => p.User1).Include(p => p.Weight_Type1);
-            return View(products.ToList());
+            var companies = db.GetAll();
+            return View(companies.ToList());
         }
 
         // GET: Products/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Product companies = db.GetById(id);
+            if (companies == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(companies);
         }
 
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.category_id = new SelectList(db.Categories, "id", "Name");
-            ViewBag.created_by = new SelectList(db.Users, "id", "name");
-            ViewBag.updated_by = new SelectList(db.Users, "id", "name");
-            ViewBag.weight_type = new SelectList(db.Weight_Type, "id", "name");
+            ViewBag.category_id = new SelectList(hef.Categories, "id", "Name");
+            ViewBag.weight_type = new SelectList(hef.Weight_Type, "id", "name");
             return View();
         }
 
@@ -51,38 +40,30 @@ namespace Habib_Chemical_Software.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,category_id,country,company,product_type,weight_type,weight_per_bag,description,current_amount,photo,created_by,updated_by,update_date,deleted")] Product product)
+        public ActionResult Create([Bind(Include = "name,category_id,country,company,product_type,weight_type,weight_per_bag,description,current_amount,photo")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                db.SaveChanges();
+                db.Add(product);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.category_id = new SelectList(db.Categories, "id", "Name", product.category_id);
-            ViewBag.created_by = new SelectList(db.Users, "id", "name", product.created_by);
-            ViewBag.updated_by = new SelectList(db.Users, "id", "name", product.updated_by);
-            ViewBag.weight_type = new SelectList(db.Weight_Type, "id", "name", product.weight_type);
+            ViewBag.category_id = new SelectList(hef.Categories, "id", "Name", product.category_id);
+            ViewBag.weight_type = new SelectList(hef.Weight_Type, "id", "name", product.weight_type);
             return View(product);
         }
 
         // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
+            Product product = db.GetById(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.category_id = new SelectList(db.Categories, "id", "Name", product.category_id);
-            ViewBag.created_by = new SelectList(db.Users, "id", "name", product.created_by);
-            ViewBag.updated_by = new SelectList(db.Users, "id", "name", product.updated_by);
-            ViewBag.weight_type = new SelectList(db.Weight_Type, "id", "name", product.weight_type);
+
+            ViewBag.category_id = new SelectList(hef.Categories, "id", "Name", product.category_id);
+            ViewBag.weight_type = new SelectList(hef.Weight_Type, "id", "name", product.weight_type);
             return View(product);
         }
 
@@ -91,29 +72,22 @@ namespace Habib_Chemical_Software.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,category_id,country,company,product_type,weight_type,weight_per_bag,description,current_amount,photo,created_by,updated_by,update_date,deleted")] Product product)
+        public ActionResult Edit([Bind(Include = "id,name,category_id,country,company,product_type,weight_type,weight_per_bag,description,current_amount,photo")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Update(product);
                 return RedirectToAction("Index");
             }
-            ViewBag.category_id = new SelectList(db.Categories, "id", "Name", product.category_id);
-            ViewBag.created_by = new SelectList(db.Users, "id", "name", product.created_by);
-            ViewBag.updated_by = new SelectList(db.Users, "id", "name", product.updated_by);
-            ViewBag.weight_type = new SelectList(db.Weight_Type, "id", "name", product.weight_type);
+            ViewBag.category_id = new SelectList(hef.Categories, "id", "Name", product.category_id);
+            ViewBag.weight_type = new SelectList(hef.Weight_Type, "id", "name", product.weight_type);
             return View(product);
         }
 
         // GET: Products/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
+            Product product = db.GetById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -126,9 +100,7 @@ namespace Habib_Chemical_Software.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            db.Delete(id);
             return RedirectToAction("Index");
         }
 
