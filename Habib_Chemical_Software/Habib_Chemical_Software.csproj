@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -161,6 +162,7 @@
     <Compile Include="BO\CategoriesBO.cs" />
     <Compile Include="BO\CompanyBO.cs" />
     <Compile Include="BO\ContextHelper.cs" />
+    <Compile Include="BO\ProductsBO.cs" />
     <Compile Include="BO\Shared.cs" />
     <Compile Include="BO\SuppliersBO.cs" />
     <Compile Include="BO\UsersBO.cs" />
