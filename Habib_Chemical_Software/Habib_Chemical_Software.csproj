@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\SelectList.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\User.cs" />
