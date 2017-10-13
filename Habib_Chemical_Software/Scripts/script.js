@@ -36,3 +36,7 @@ $("#contactmodal").live("click", function () {
     });
     return false;
 });
+function AddCompanyInforamtion() {
+    var name = document.getElementById("name").value;
+    var number = document.getElementById("number").value;
+}

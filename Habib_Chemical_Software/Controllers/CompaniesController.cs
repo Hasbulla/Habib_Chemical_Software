@@ -51,6 +51,7 @@ namespace Habib_Chemical_Software.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,address,email,company_type")] Company company)
         {
+            var RequestInformation = Request.Params.AllKeys.ToList();
             if (ModelState.IsValid)
             {
                 db.Add(company);

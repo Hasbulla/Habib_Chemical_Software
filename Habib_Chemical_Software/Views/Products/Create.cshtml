@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.category_id, "category_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.category_id, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("category_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
@@ -42,21 +42,34 @@
         <div class="form-group">
             @Html.LabelFor(model => model.company, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.company, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.company, new { htmlAttributes = new { @class = "form-control" }, type = "file" })
                 @Html.ValidationMessageFor(model => model.company, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.product_type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.product_type, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.product_type, "", new { @class = "text-danger" })
             </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.product_type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.product_type, new List<SelectListItem>
+                    {
+                          new SelectListItem{ Text = "Solid", Value = "Solid" },
+                          new SelectListItem{ Text = "Liquid", Value = "Liquid" }
+                    },
+                    htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.product_type, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.weight_type, "weight_type", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.weight_type, "Weight Type", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("weight_type", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.weight_type, "", new { @class = "text-danger" })
@@ -80,52 +93,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.current_amount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.current_amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.current_amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.photo, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.photo, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="file" name="file" style="width: 100%;" id="file" class="form-control" />
                 @Html.ValidationMessageFor(model => model.photo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.created_by, "created_by", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("created_by", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.created_by, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.updated_by, "updated_by", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("updated_by", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.updated_by, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.update_date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.update_date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.update_date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.deleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.deleted)
-                    @Html.ValidationMessageFor(model => model.deleted, "", new { @class = "text-danger" })
-                </div>
             </div>
         </div>
 
