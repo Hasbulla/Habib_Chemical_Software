@@ -69,7 +69,8 @@
             @Html.DisplayFor(modelItem => item.current_amount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.photo)
+            @*@Html.DisplayFor(modelItem => item.photo)*@
+            <img src="@Url.Content(item.photo)" alt="Image" height="100px"/>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

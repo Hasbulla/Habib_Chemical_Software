@@ -50,7 +50,7 @@ namespace Habib_Chemical_Software.Controllers
             {
                 if (file != null)
                 {
-                    string pic = Path.GetFileName(file.FileName) + DateTime.Now.ToString("mmssddMMyyyy");
+                    string pic = DateTime.Now.ToString("hhmmssddMMyyyy") + " - " + Path.GetFileName(file.FileName);
                     string path = Path.Combine(
                                            Server.MapPath("~/images/"), pic);
                     // file is uploaded
@@ -64,7 +64,7 @@ namespace Habib_Chemical_Software.Controllers
                     //    file.InputStream.CopyTo(ms);
                     //    byte[] array = ms.GetBuffer();
                     //}
-                    product.photo = pic;
+                    product.photo = "~/images/" + pic;
 
                 }
                 db.Add(product);
