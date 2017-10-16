@@ -68,10 +68,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.current_amount)
         </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.photo)*@
-            <img src="@Url.Content(item.photo)" alt="Image" height="100px"/>
-        </td>
+        @{
+            if (item.photo != null)
+            {
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.photo)*@
+                    <img src="@Url.Content(item.photo)" alt="Image" height="100px" />
+                </td>
+            }
+            else
+            {
+                <td>
+                    No Photo Available
+                </td>
+            }
+        }
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |

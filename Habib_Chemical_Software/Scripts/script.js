@@ -1,42 +1,33 @@
-( function( $ ) {
-$( document ).ready(function() {
-$('#cssmenu > ul > li > a').click(function() {
-  $('#cssmenu li').removeClass('active');
-  $(this).closest('li').addClass('active');	
-  var checkElement = $(this).next();
-  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-    $(this).closest('li').removeClass('active');
-    checkElement.slideUp('normal');
-  }
-  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-    $('#cssmenu ul ul:visible').slideUp('normal');
-    checkElement.slideDown('normal');
-  }
-  if($(this).closest('li').find('ul').children().length == 0) {
-    return true;
-  } else {
-    return false;	
-  }		
-});
-});
-})(jQuery);
+//(function ($) {
+//    $(document).ready(function () {
+//        $('#cssmenu > ul > li > a').click(function () {
+//            $('#cssmenu li').removeClass('active');
+//            $(this).closest('li').addClass('active');
+//            var checkElement = $(this).next();
+//            if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+//                $(this).closest('li').removeClass('active');
+//                checkElement.slideUp('normal');
+//            }
+//            if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+//                $('#cssmenu ul ul:visible').slideUp('normal');
+//                checkElement.slideDown('normal');
+//            }
+//            if ($(this).closest('li').find('ul').children().length == 0) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        });
 
-$("#contactmodal").live("click", function () {
-    debugger;
-    $("#window").dialog({
-        title: "Send message",
-        width: 430,
-        height: 250,
-        modal: true,
-        buttons: {
-            Close: function () {
-                $(this).dialog('close');
-            }
-        }
+//        $('input:file').change(function () {
+//            alert('Test');
+//            $("#productEditSpan").attr('hidden', 'hidden');
+//        });
+//    });
+//})(jQuery);
+
+$(document).ready(function () {
+    $('input[type=file]').change(function () {
+        $("#productEditSpan").html($(this).val());
     });
-    return false;
-});
-function AddCompanyInforamtion() {
-    var name = document.getElementById("name").value;
-    var number = document.getElementById("number").value;
-}
+})

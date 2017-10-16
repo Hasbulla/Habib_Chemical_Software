@@ -51,8 +51,7 @@ namespace Habib_Chemical_Software.Controllers
                 if (file != null)
                 {
                     string pic = DateTime.Now.ToString("hhmmssddMMyyyy") + " - " + Path.GetFileName(file.FileName);
-                    string path = Path.Combine(
-                                           Server.MapPath("~/images/"), pic);
+                    string path = Path.Combine(Server.MapPath("~/images/"), pic);
                     // file is uploaded
                     file.SaveAs(path);
 
@@ -95,11 +94,23 @@ namespace Habib_Chemical_Software.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,category_id,country,company,product_type,weight_type,weight_per_bag,description,current_amount,photo")] Product product)
+        //public ActionResult Edit([Bind(Include = "id,name,category_id,country,company,product_type,weight_type,weight_per_bag,description")] Product product, HttpPostedFileBase file)
+        public ActionResult Edit(Product product, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Update(product);
+                Product pro = hef.Products.Find(product.id);
+                if (file != null)
+                {
+                    string pic = DateTime.Now.ToString("hhmmssddMMyyyy") + " - " + Path.GetFileName(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/images/"), pic);
+                    file.SaveAs(path);
+                    product.photo = "~/images/" + pic;
+                    db.delete_only_image(product.id);
+                    db.Update(product, "~/images/" + pic);
+                }
+                else
+                    db.Update(product);
                 return RedirectToAction("Index");
             }
             ViewBag.category_id = new SelectList(hef.Categories, "id", "Name", product.category_id);
