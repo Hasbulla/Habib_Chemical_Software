@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Habib_Chemical_Software
 {
@@ -36,10 +39,13 @@ namespace Habib_Chemical_Software
         [Display(Name = "Description")]
         [DataType(DataType.MultilineText)]
         public string description { get; set; }
-        
-        [DataType(DataType.Currency)]
+
+        [Range(0, UInt64.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         [Display(Name = "Current Amount")]
         public int current_amount { get; set; }
+
+        [FileType("jpg,jpeg,png")]
+        public IEnumerable<HttpPostedFileBase> file { get; set; }
 
         //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
         [Display(Name = "Photo")]
@@ -49,5 +55,6 @@ namespace Habib_Chemical_Software
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {
+        public IEnumerable<HttpPostedFileBase> file { get; set; }
     }
 }
