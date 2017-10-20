@@ -89,11 +89,11 @@ namespace Habib_Chemical_Software.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,address,email,company_type")] Company company)
+        public ActionResult Edit([Bind(Include = "id,name,address,email,company_type")] Company company, string dynamicName1, string dynamicName2, string dynamicName3, string dynamicName4, string dynamicContact1, string dynamicContact2, string dynamicContact3, string dynamicContact4)
         {
             if (ModelState.IsValid)
             {
-                db.Update(company);
+                db.Update(company, dynamicName1, dynamicName2, dynamicName3, dynamicName4, dynamicContact1, dynamicContact2, dynamicContact3, dynamicContact4);
                 return RedirectToAction("Index");
             }
             return View(company);
