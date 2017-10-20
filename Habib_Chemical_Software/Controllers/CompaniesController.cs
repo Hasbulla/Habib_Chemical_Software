@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using Habib_Chemical_Software;
 using Habib_Chemical_Software.BO;
+using System.Dynamic;
 
 namespace Habib_Chemical_Software.Controllers
 {
     public class CompaniesController : Controller
     {
         CompanyBO db = new CompanyBO();
+        Habib_ChemicalsEntities habib_ChemicalsEntities = new Habib_ChemicalsEntities();
 
         // GET: Companies
         public ActionResult Index()
@@ -49,12 +51,12 @@ namespace Habib_Chemical_Software.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,address,email,company_type")] Company company)
+        public ActionResult Create([Bind(Include = "name,address,email,company_type")] Company company, string dynamicName1, string dynamicName2, string dynamicName3, string dynamicName4, string dynamicContact1, string dynamicContact2, string dynamicContact3, string dynamicContact4)
         {
             var RequestInformation = Request.Params.AllKeys.ToList();
             if (ModelState.IsValid)
             {
-                db.Add(company);
+                db.Add(company, dynamicName1, dynamicName2, dynamicName3, dynamicName4, dynamicContact1, dynamicContact2, dynamicContact3, dynamicContact4);
                 return RedirectToAction("Index");
             }
 
@@ -69,11 +71,16 @@ namespace Habib_Chemical_Software.Controllers
             {
                 return HttpNotFound();
             }
-
+            var contactPerson = habib_ChemicalsEntities.Company_Contact_Persons.Where(u => u.company_id == id).ToList();
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "Garments", Value = "Garments", Selected = true });
             items.Add(new SelectListItem { Text = "Washing", Value = "Washing" });
             ViewBag.CompanyType = items;
+            ViewBag.ContactPersons = contactPerson;
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.company = company;
+            //mymodel.ContactPersons = contactPerson;
+
             return View(company);
         }
 

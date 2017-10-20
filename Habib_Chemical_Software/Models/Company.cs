@@ -16,7 +16,7 @@ namespace Habib_Chemical_Software
         [Display(Name = "Company Name")]
         public string name { get; set; }
 
-
+        [Required(ErrorMessage = "Please Provide An Address")]
         [Display(Name = "Address")]
         [DataType(DataType.MultilineText)]
         public string address { get; set; }

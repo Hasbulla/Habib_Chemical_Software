@@ -33,37 +33,93 @@ $(document).ready(function () {
 
     var counter = 2;
 
-    $("#addContactTextBoxes").click(function () {
+    //$("#createCompanyForm").validate({
+    //        rules{
+                
+    //        }
+    //    }
+    //);
 
+    //Company/Create Add input group Button
+    $("#addContactTextBoxes").click(function () {
+        var elementCounter = $("input[name^='dynamicName']");
+        counter = elementCounter.length + 1;
         if (counter > 4) {
-            alert("Only 4 textboxes allow");
+            alert("You can not add any more contact");
             return false;
         }
 
-        var addtext = '<div class="form-group"  id="contactGroup'+ counter +'"> ' +
+        var addtextpart1 = '<div class="form-group"  id="contactGroup'+ counter +'"> ' +
             '<div class="input-group"> ' +
                 '<span class="input-group-addon">Name</span> ' +
-            '<input type="text" name="name' + counter + '" id="name' + counter +'" class="form-control" /> ' +
+            '<input type="text" name="dynamicName' + counter + '" id="name' + counter +'" class="form-control" /> ' +
                 '<span class="input-group-addon">Contact</span> ' +
-            '<input type="text" name="contact' + counter + '" id="contact' + counter +'" class="form-control" /> ' +
+            '<input type="text" name="dynamicContact' + counter + '" id="contact' + counter +'" class="form-control" /> ' +
                 '</div > ' +
             '</div>';
 
-        $("#contactGroup1").after(addtext);
+        //var addtextpart1 = '<div class="form-group" id="contactGroup' + counter + '"> <div class="input-group" id="inputgroup' + counter + '"> <span class="input-group-addon">Name</span></div > </div>';
+        //var addtextpart2 = '<input type= "text" name= "name' + counter + '" id= "name' + counter +'" class="form-control" />';
+        //var addtextpart3 = '<span class="input-group-addon">Contact</span> ';
+        //var addtextpart4 = '<input type="text" name="contact' + counter + '" id="contact' + counter + '" class="form-control" /> ';
+        //var addtextpart5 = '</div > </div>';
 
+        $("#contactGroup" + (counter - 1)).after(addtextpart1);
+        //$("#inputgroup" + (counter)).append(addtextpart2).validate({
+        //    rules: {
+        //        field: {
+        //            required: true
+        //        }
+        //    }
+        //});
+        //$("#inputgroup" + (counter)).append(addtextpart3);
+        //$("#inputgroup" + (counter)).append(addtextpart4).validate({
+        //    rules: {
+        //        field: {
+        //            required: true,
+        //            digits: true
+        //        }
+        //    }
+        //});
+        //$("#inputgroup" + (counter)).append(addtextpart5);
+
+        //$("#createCompanyForm").removeData('validator');
+        //$("#createCompanyForm").removeData('unobtrusiveValidation');
+        //$.validator.unobtrusive.parse("#createCompanyForm");
+        //$("#createCompanyForm").validate();
+        $("input[name^='dynamicName']").each(function () {
+            $(this).rules("add", {
+                required: true,
+                messages: {
+                    required: "Please Enter Contact Person Name"
+                }
+            });
+        });
+
+        $("input[name^='dynamicContact']").each(function () {
+            $(this).rules("add", {
+                required: true,
+                digits: true,
+                messages: {
+                    required: "Please Enter a Valid Mobile Number",
+                    digits: "Please Enter a Valid Mobile Number"
+                }
+            });
+        });
 
         counter++;
     });
 
-    $("#removeButton").click(function () {
-        if (counter == 1) {
-            alert("No more textbox to remove");
+    //Company/Create Remove input group Button
+    $("#removeContactTextBoxes").click(function () {
+        if (counter == 2) {
+            alert("Minimum 1 Contact is Required");
             return false;
         }
 
         counter--;
 
-        $("#TextBoxDiv" + counter).remove();
+        $("#contactGroup" + counter).remove();
 
     });
 

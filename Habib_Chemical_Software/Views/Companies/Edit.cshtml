@@ -1,58 +1,101 @@
 ﻿@model Habib_Chemical_Software.Company
 
 @{
-    ViewBag.Title = "Edit COmpany";
+    ViewBag.Title = "Edit Company";
 }
 
 <h2>Edit COmpany</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "editCompanyForm" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Company</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+        <div class="col-md-5">
+            <h3>Company Details</h3>
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.company_type, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.company_type, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownList("company_type", (IEnumerable<SelectListItem>)ViewBag.CompanyType, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.company_type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        @{
+            var Users = (List<Company_Contact_Persons>)ViewBag.ContactPersons;
+        }
+        <div class="col-md-7">
+            <h3>Contact Details</h3>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="button" id="addContactTextBoxes" value=" Add More Contact " class="btn btn-success" />
+                    <span>    </span>
+                    <input type="button" id="removeContactTextBoxes" value="Remove Last Contact" class="btn btn-warning" />
+                </div>
+            </div>
+            @{
+                if (Users.Count == 0)
+                {
+                    <div class="form-group" id="contactGroup1">
+                        <div class="input-group">
+                            <span class="input-group-addon">Name</span>
+                            <input type="text" name="dynamicName1" id="name1" class="form-control" />
+                            <span class="input-group-addon">Contact</span>
+                            <input type="text" name="dynamicContact1" id="contact1" class="form-control" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    var counter = 1;
+                    foreach (var item in Users)
+                    {
+                        <div class="form-group" id="contactGroup@(counter)">
+                            <div class="input-group">
+                                <span class="input-group-addon">Name</span>
+                                <input type="text" name="dynamicName@(counter)" id="name@(counter)" value="@(item.name)" class="form-control" />
+                                <span class="input-group-addon">Contact</span>
+                                <input type="text" name="dynamicContact@(counter)" id="contact@(counter)" value="@(item.contact)" class="form-control" />
+                            </div>
+                        </div>
+                        counter = counter + 1;
+                    }
+                }
+            }
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.company_type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.company_type, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownList("company_type", (IEnumerable<SelectListItem>)ViewBag.CompanyType, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.company_type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-offset-5 col-md-10">
+                <input type="submit" value="Save" class="btn btn-lg btn-success" />
             </div>
         </div>
     </div>
