@@ -31,7 +31,7 @@ namespace Habib_Chemical_Software
         [Required(ErrorMessage = "Please Select Company Type")]
         [Display(Name = "Company Type")]
         public string company_type { get; set; }
-        
+
 
         [Display(Name = "Total Due")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:#,0}৳")]
@@ -52,5 +52,10 @@ namespace Habib_Chemical_Software
     [MetadataType(typeof(CompanyMetaData))]
     public partial class Company
     {
+    }
+
+    public class CompanyModelData:CompanyMetaData
+    {
+        public string CompanyContactInformationToString { get; set; }
     }
 }

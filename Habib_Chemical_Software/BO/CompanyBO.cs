@@ -13,6 +13,13 @@ namespace Habib_Chemical_Software.BO
 
         public IEnumerable<Company> GetAll()
         {
+            //var result = hef.Companies
+            //    .Select(x => new CompanyModelData
+            //    {
+            //        name = x.name,
+            //        CompanyContactInformationToString=String.Join(",\n", x.Company_Contact_Persons.Select(cci=>(cci.name+":"+cci.contact)))
+            //    }).ToList();
+
             return rep.GetAll(c => c.deleted == false);
         }
         public Company GetById(int id)
