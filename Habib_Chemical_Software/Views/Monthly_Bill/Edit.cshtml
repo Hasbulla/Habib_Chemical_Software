@@ -18,15 +18,7 @@
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.monthly_bill_id, "monthly_bill_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.monthly_bill_id, "Bill Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("monthly_bill_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.monthly_bill_id, "", new { @class = "text-danger" })
@@ -52,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.payment_date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.payment_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.payment_date, new { htmlAttributes = new { @class = "form-control", @id = "datetimepicker_payment_date" } })
                 @Html.ValidationMessageFor(model => model.payment_date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,4 +63,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/moment.min.js")"></script>
 }

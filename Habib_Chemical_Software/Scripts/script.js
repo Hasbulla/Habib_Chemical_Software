@@ -131,4 +131,17 @@ $(document).ready(function () {
         }
         alert(msg);
     });
+
+    
 })
+
+$(function () { // will trigger when the document is ready
+    $('#payment_date').datetimepicker({
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    }); //Initialise any date pickers
+});

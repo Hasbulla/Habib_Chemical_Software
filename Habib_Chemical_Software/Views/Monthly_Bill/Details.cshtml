@@ -10,12 +10,13 @@
     <h4>Monthly_Bill</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.date)
+            @Html.DisplayNameFor(model => model.Monthly_Bill_Name.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.date)
+            @Html.DisplayFor(model => model.Monthly_Bill_Name.name)
         </dd>
 
         <dt>
@@ -40,14 +41,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.payment_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Monthly_Bill_Name.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Monthly_Bill_Name.name)
         </dd>
     </dl>
 </div>
